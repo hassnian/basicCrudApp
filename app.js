@@ -1,7 +1,7 @@
 // request
 function ajax() {
     const request = new XMLHttpRequest();
-    request.open("GET", "data.json");
+    request.open("GET", "data.json",true);
     request.onload = () => {
         try {
             const json = JSON.parse(request.responseText);
@@ -22,6 +22,7 @@ function ajax() {
 }
 
 function load(json) {
+   
     UI.addCountrie(json);
     UI.counterCountries(json);
 
@@ -50,6 +51,14 @@ function load(json) {
 
 // }
 
+//class countrie
+class Countrie{
+    constructor(name,url){
+        this.name=name;
+        this.url=url;
+    }
+}
+
 
 
 // UI
@@ -58,20 +67,31 @@ class UI {
 
         const tbody = document.querySelector('#countries');
         json.forEach(cell => {
+            console.log(cell);
             // UI.counterCountries(json);
+           
             const row = document.createElement('tr');
             row.innerHTML = `
-            <td>${cell}</td>
-            <td><a href="#" id="edit" class="btn btn-light edit">Edit</a></td>
-            <td><a href="#" id="delete"class="btn btn-light delete">Delete</a></td>`;
+            <td>${cell.name}</td>
+            <td><img src="${cell.url}" height="30px"></td>
+            <td><a href="#"  class="btn btn-light edit">Edit</a></td>
+            <td><a href="#" class="btn btn-light delete">Delete</a></td>`;
             tbody.appendChild(row);
-            console.log(cell);
+           
         });
 
     }
+
+
+
+
     //delete countrie
-    static deleteCountrie(json) {
-        const row = document.querySelector('')
+    static deleteCountrie(e) {
+        if(e.target.classList.contains("delete")){
+            // e.target.parentElement.parentElement.remove();
+    
+
+        }
 
     }
 
@@ -80,12 +100,14 @@ class UI {
     static counterCountries(json) {
         if (json.length != 0) {
             const counter = document.querySelector('#counter');
+            counter.firstChild.nodeValue="";
             let text = document.createTextNode(`${json.length} Countries`);
             counter.appendChild(text);
-            console.log(json.length);
             counter.innerHTML()
+            console.log(json.length);
         } else {
             const counter = document.querySelector('#counter');
+            counter.firstChild.nodeValue="";
             let text = document.createTextNode(`0 Countries`);
             counter.appendChild(text);
             console.log(json.length);
@@ -95,16 +117,24 @@ class UI {
 
 }
 //Store
-// class Store{
-//     static {
-
-//     }
-// }
+class Store{
+    static deleteCountrie(e){
+;
+    }
+}
 
 // When page is loaded
 window.addEventListener('DOMContentLoaded', ajax());
 //if something its clicked 
 document.querySelector('.container').addEventListener('click', (e) => {
-    // UI.deleteCountrie();
-    console.log(e.target);
+    UI.deleteCountrie(e);
+    // Store.deleteCountrie(e);
+
+
+console.log(e.target);
+
+    //UI.addCountrie
+    
+
+    
 })
