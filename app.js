@@ -1,13 +1,13 @@
 // request
-function load() {
+function ajax() {
     const request = new XMLHttpRequest();
-    request.open("get", "data.json");
+    request.open("GET", "data.json");
     request.onload = () => {
         try {
             const json = JSON.parse(request.responseText);
             // console.log(json);
-            UI.addCountrie(json);
-            UI.counterCountries(json);
+            load(json);
+            console.log(this.status)
 
 
         } catch (e) {
@@ -20,6 +20,37 @@ function load() {
     request.responseText;
 
 }
+
+function load(json) {
+    UI.addCountrie(json);
+    UI.counterCountries(json);
+
+
+}
+// // old request
+// function load() {
+//     const request = new XMLHttpRequest();
+//     request.open("get", "data.json");
+//     request.onload = () => {
+//         try {
+//             const json = JSON.parse(request.responseText);
+//             // console.log(json);
+//             UI.addCountrie(json);
+//             UI.counterCountries(json);
+
+
+//         } catch (e) {
+//             console.warn("no se pudo cargar la página");
+
+//         }
+
+//     }
+//     request.send();
+//     request.responseText;
+
+// }
+
+
 
 // UI
 class UI {
@@ -43,22 +74,35 @@ class UI {
         const row = document.querySelector('')
 
     }
-   
-    
+
+
     // Counter of countries
     static counterCountries(json) {
-        const counter = document.querySelector('#counter');
-        let text = document.createTextNode(`${json.length} Countries`);
-        counter.appendChild(text);
-        console.log(json.length);
-        counter.innerHTML()
+        if (json.length != 0) {
+            const counter = document.querySelector('#counter');
+            let text = document.createTextNode(`${json.length} Countries`);
+            counter.appendChild(text);
+            console.log(json.length);
+            counter.innerHTML()
+        } else {
+            const counter = document.querySelector('#counter');
+            let text = document.createTextNode(`0 Countries`);
+            counter.appendChild(text);
+            console.log(json.length);
+            counter.innerHTML()
+        }
     }
 
 }
+//Store
+// class Store{
+//     static {
 
+//     }
+// }
 
 // When page is loaded
-window.addEventListener('DOMContentLoaded', load());
+window.addEventListener('DOMContentLoaded', ajax());
 //if something its clicked 
 document.querySelector('.container').addEventListener('click', (e) => {
     // UI.deleteCountrie();
