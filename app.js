@@ -1,24 +1,20 @@
-// When page is loaded
-window.addEventListener('DOMContentLoaded',load());
-
-
-
 // request
-function load(){
+function load() {
     const request = new XMLHttpRequest();
     request.open("get", "data.json");
     request.onload = () => {
-        try{
-            const json=JSON.parse(request.responseText);
+        try {
+            const json = JSON.parse(request.responseText);
             // console.log(json);
             UI.addCountrie(json);
-            
-        }
-        catch(e){
+            UI.counterCountries(json);
+
+
+        } catch (e) {
             console.warn("no se pudo cargar la página");
-            
+
         }
-        
+
     }
     request.send();
     request.responseText;
@@ -26,27 +22,45 @@ function load(){
 }
 
 // UI
-class UI{
-    static addCountrie(json){
-        
-        const tbody=document.querySelector('#countries');
+class UI {
+    static addCountrie(json) {
+
+        const tbody = document.querySelector('#countries');
         json.forEach(cell => {
-            UI.counter(this);
-            const row=document.createElement('tr');
+            // UI.counterCountries(json);
+            const row = document.createElement('tr');
             row.innerHTML = `
-        <td>${cell}</td>
-        <td><input type="button" value="Edit" class="btn btn-light edit"></td>
-        <td><input type="button" value="Delete" class="btn btn-light delete"></td>`;
-        tbody.appendChild(row);
+            <td>${cell}</td>
+            <td><a href="#" id="edit" class="btn btn-light edit">Edit</a></td>
+            <td><a href="#" id="delete"class="btn btn-light delete">Delete</a></td>`;
+            tbody.appendChild(row);
             console.log(cell);
         });
 
     }
-// Counter of countries
-    static counter(json){
-        const counter=document.querySelector('#counter');
-        // counter.innerHTML("hello");
-        console.log(counter);
+    //delete countrie
+    static deleteCountrie(json) {
+        const row = document.querySelector('')
+
+    }
+   
+    
+    // Counter of countries
+    static counterCountries(json) {
+        const counter = document.querySelector('#counter');
+        let text = document.createTextNode(`${json.length} Countries`);
+        counter.appendChild(text);
+        console.log(json.length);
+        counter.innerHTML()
     }
 
 }
+
+
+// When page is loaded
+window.addEventListener('DOMContentLoaded', load());
+//if something its clicked 
+document.querySelector('.container').addEventListener('click', (e) => {
+    // UI.deleteCountrie();
+    console.log(e.target);
+})
