@@ -89,9 +89,17 @@ class UI {
     static deleteCountrie(e) {
         if(e.target.classList.contains("delete")){
             // e.target.parentElement.parentElement.remove();
-    
+        //    const  req=new XMLHttpRequest();
+        //     req.open("POST","data.json",true);
+        //     req.setRequestHeader('Content-Type','text/plain');
+        //     req.onreadystatechange=()=>{
+        //       if(req.readyState==4 && req.status==200){
+        //       console.log(req);
+        //       }
+        //     };
+        //     req.send([a,2]);
 
-        }
+        // }
 
     }
 
